@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# HexletCode - это модуль, который предоставляет...
 require_relative 'hexlet_code/version'
 module HexletCode
   def self.build(tag_name, attributes = {})
