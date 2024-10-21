@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata['homepage_uri'] = 'https://github.com/Ilya-Sche/rails-project-63/tree/'
-  spec.metadata['rubygems_mfa_required'] = true
+  spec.metadata['rubygems_mfa_required'] = 'true'
   # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
   # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
