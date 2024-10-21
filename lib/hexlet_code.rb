@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-# HexletCode - это модуль, который предоставляет...
 require_relative 'hexlet_code/version'
+# HexletCode - это модуль, который предоставляет...
 module HexletCode
   def self.build(tag_name, attributes = {})
     tag_attr = attributes.map { |key, value| "#{key}=\'#{value}\'" }.join(' ')
