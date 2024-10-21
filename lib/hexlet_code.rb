@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'hexlet_code/version'
 # HexletCode - это модуль, который предоставляет...
 module HexletCode
