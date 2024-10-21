@@ -1,6 +1,6 @@
 install:
 	bundle install
-  lint:
+lint:
 	bundle exec rubocop
-  test:
- 	 bundle exec rspec
+test:
+	bundle exec rspec
