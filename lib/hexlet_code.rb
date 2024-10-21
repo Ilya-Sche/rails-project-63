@@ -12,6 +12,3 @@ module HexletCode
     end
   end
 end
-
-# class Error < StandardError
-# end
