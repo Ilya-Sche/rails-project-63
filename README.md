@@ -1,0 +1,2 @@
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Ilya-Sche/rails-project-63/actions)
