@@ -1,51 +1,43 @@
-name: Lint and Test
+name: CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  rubocop:
+  lint:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.2.2'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
 
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
+      - name: Install dependencies
+        run: |
+          bundle install
 
-    - name: Run RuboCop
-      run: bundle exec rubocop
+      - name: Run linter
+        run: |
+          make lint
 
   test:
     runs-on: ubuntu-latest
-    needs: rubocop
-
+    needs: lint
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.2.2'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
 
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
+      - name: Install dependencies
+        run: |
+          bundle install
 
-    - name: Run tests
-      run: make test
+      - name: Run tests
+        run: |
+          make test
