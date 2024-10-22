@@ -15,10 +15,9 @@ module HexletCode
   def self.form_for(attr = {}, &block)
     user_attr = attr.map { |key, value| "#{key}='#{value}'" }.join(' ')
     result = "<form#{user_attr.empty? ? '' : " #{user_attr}"}>"
-    block_given? && block.call || ''
+    (block_given? && block.call) || ''
     result += yield
     result += '</form>'
     result
   end
 end
-
