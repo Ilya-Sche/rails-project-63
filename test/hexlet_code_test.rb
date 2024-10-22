@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/hexlet_code.rb'
+require_relative '../lib/hexlet_code'
 
 class HexletCodeTest < Minitest::Test
   def test_form_for_without_attributes
     user = Struct.new(:name, :job, keyword_init: true).new(name: 'rob', job: 'developer')
     result = HexletCode.form_for(user) {}
-    assert_equal "<form></form>", result
+    assert_equal '<form></form>', result
   end
 
   def test_form_for_with_attributes
