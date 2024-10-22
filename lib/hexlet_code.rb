@@ -8,7 +8,18 @@ module HexletCode
     if tag_attr.empty?
       "<#{tag_name}>"
     else
-      "<#{tag_name} #{tag_attr} />"
+      "<#{tag_name} #{tag_attr}/>"
     end
   end
+
+  def self.form_for(user, attr = {}, &block) 
+    user_attr = attr.map { |key, value|  "#{key}='#{value}'" }.join(' ')
+    result = "<form#{user_attr.empty? ? '' : " #{user_attr}"}>"
+    if block_given? ? block.call : ''
+      result += yield
+    end
+    result += "</form>"
+    result
+  end
 end
+
