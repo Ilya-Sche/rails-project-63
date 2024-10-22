@@ -16,8 +16,7 @@ module HexletCode
     user_attr = attr.map { |key, value| "#{key}='#{value}'" }.join(' ')
     result = "<form#{user_attr.empty? ? '' : " #{user_attr}"}>"
     block_given? && block.call || ''
-      result += yield
-    end
+    result += yield
     result += '</form>'
     result
   end
