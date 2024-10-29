@@ -13,7 +13,7 @@ module HexletCode
     end
   end
 
-  def self.form_for(user, action: "#", method: "post", url: nil)
+  def self.form_for(user, action: '#', method: 'post', url: nil)
     result = []
     form = UserForm.new(user)
 
@@ -24,14 +24,14 @@ module HexletCode
     end
 
     result << yield(form) if block_given?
-    result << "</form>"
-    result.join('')
+    result << '</form>'
+    result.join(' ')
   end
   
 
   require 'ostruct'
+  # UserForm- это класс, который предоставляет...
   class UserForm
-
     def initialize(user)
       @user = user
       @array = []
@@ -64,32 +64,3 @@ module HexletCode
     end
   end
 end
-
-# "<form action='#' method='post'><input name='name' type='text' value='rob'><textarea name='job' cols='20' rows='40'>hexlet</textarea></form>"
-# result = HexletCode.form_for(user) do |f|
-#   f.input :name
-#   f.input :job, as: :text
-# end
-
-
-
-# def self.form_for(user, method: "#", action: "post")
-#   result = []
-#   form = UserForm.new(user)
-#   result << "<form action='#{action}' method='#{method}'>"
-#   result << = yield(form) if block_given?
-#   result << = "</form>"
-#   result
-# end
-
-# def self.form_for(user, attr = {}, &block)
-# form = UserForm.new(user)
-#   action = attr.delete(:url) || '#'
-#   user_attr = attr.map { |key, value| "#{key}='#{value}'" }.join(' ')
-#   result = "<form#{user_attr.empty? ? '' : " #{user_attr}"}>"
-#   yield(form) if block_given?
-#   result << form.to_s
-#   result << "</form>"
-#   result
-# end
-# type = options.fetch(:as, 'text')
