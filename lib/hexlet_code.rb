@@ -16,18 +16,12 @@ module HexletCode
   def self.form_for(user, action: '#', method: 'post', url: nil)
     result = []
     form = UserForm.new(user)
-
-    if url
-      result << "<form action='#{url}' method='#{method}'>"
-    else
-      result << "<form action='#{action}' method='#{method}'>"
-    end
-
+    form_action = url || action
+    result << "<form action='#{form_action}' method='#{method}'>"
     result << yield(form) if block_given?
     result << '</form>'
     result.join(' ')
   end
-  
 
   require 'ostruct'
   # UserForm- это класс, который предоставляет...
@@ -37,25 +31,25 @@ module HexletCode
       @array = []
     end
   
-    def input(input_name, **options)
-      value = @user.public_send(input_name) || ''    
+    def input(name, **options)
+      value = @user.public_send(name) || ''
       type = options.fetch(:as, 'text')
       additional_attributes = options.reject { |key| key == :as }
 
       if additional_attributes.any?
-        attr_string = additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
+        attr_string = additional_attributes.map { |key, attr_value| "#{key}='#{attr_value}'" }.join(' ')
         @array << attr_string if attr_string&.empty?
       end
     
       if type == :text
         cols = options.fetch(:cols, '10')
         rows = options.fetch(:rows, '20')
-        @array << "<textarea name='#{input_name}' cols='#{cols}' rows='#{rows}'>#{value}</textarea>"
+        @array << "<textarea name='#{name}' cols='#{cols}' rows='#{rows}'>#{attr_value}</textarea>"
       else
         attributes = [
-          "name='#{input_name}'",
+          "name='#{name}'",
           "type='#{type}'",
-          "value='#{value}'",
+          "attr_value='#{attr_value}'",
           (attr_string unless attr_string.nil?)
         ].compact.join(' ')
 
