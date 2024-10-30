@@ -36,6 +36,9 @@ module HexletCode
       type = options.fetch(:as, 'text')
       attr_string = form_attr_string(options)
 
+      person_name = input_name
+      @array << "<label for='#{input_name}'>#{person_name.capitalize}</label>"
+
       if type == :text
         form_textarea(input_name, options, value)
       else
@@ -46,7 +49,6 @@ module HexletCode
     def form_attr_string(options)
       additional_attributes = options.reject { |key| key == :as }
       additional_attributes.any?
-      additional_attributes = options.reject { |key| key == :as }
       additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
     end
 
@@ -65,6 +67,10 @@ module HexletCode
       ].compact.join(' ')
 
       @array << "<input #{attributes}>"
+    end
+
+    def submit(value = 'Save')
+      @array << "<input type='submit' value='#{value}'>"
     end
   end
 end
