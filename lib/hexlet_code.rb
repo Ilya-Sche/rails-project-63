@@ -20,7 +20,7 @@ module HexletCode
     result << "<form action='#{form_action}' method='#{method}'>"
     result << yield(form) if block_given?
     result << '</form>'
-    result.join(' ')
+    result.join.strip
   end
 
   require 'ostruct'
@@ -31,30 +31,37 @@ module HexletCode
       @array = []
     end
   
-    def input(name, **options)
-      value = @user.public_send(name) || ''
+    def input(input_name, **options)
+      value = @user.public_send(input_name) || ''
       type = options.fetch(:as, 'text')
       additional_attributes = options.reject { |key| key == :as }
+      additional_attributes.any?
+      attr_string = additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
+      @array << attr_string if attr_string&.empty?
 
-      if additional_attributes.any?
-        attr_string = additional_attributes.map { |key, attr_value| "#{key}='#{attr_value}'" }.join(' ')
-        @array << attr_string if attr_string&.empty?
-      end
-    
       if type == :text
         cols = options.fetch(:cols, '10')
         rows = options.fetch(:rows, '20')
-        @array << "<textarea name='#{name}' cols='#{cols}' rows='#{rows}'>#{attr_value}</textarea>"
+        @array << form_textarea(input_name, cols, rows, value)
       else
-        attributes = [
-          "name='#{name}'",
-          "type='#{type}'",
-          "attr_value='#{attr_value}'",
-          (attr_string unless attr_string.nil?)
-        ].compact.join(' ')
-
-        @array << "<input #{attributes}>"
+        @array << form_input(input_name, type, value, attr_string)
       end
+    end
+
+    def form_textarea(input_name, cols, rows, value)
+      "<textarea name='#{input_name}' cols='#{cols}' rows='#{rows}'>#{value}</textarea>"
+    end
+
+    def form_input(name, type, value, attr_string)
+
+      attributes = [
+        "name='#{name}'",
+        "type='#{type}'",
+        "value='#{value}'",
+        (attr_string unless attr_string.empty?)
+      ].compact.join(' ')
+
+      "<input #{attributes}>"
     end
   end
 end
