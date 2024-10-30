@@ -30,7 +30,7 @@ module HexletCode
       @user = user
       @array = []
     end
-  
+
     def input(input_name, **options)
       value = @user.public_send(input_name) || ''
       type = options.fetch(:as, 'text')
