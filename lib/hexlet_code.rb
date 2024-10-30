@@ -34,26 +34,29 @@ module HexletCode
     def input(input_name, **options)
       value = @user.public_send(input_name) || ''
       type = options.fetch(:as, 'text')
-      additional_attributes = options.reject { |key| key == :as }
-      additional_attributes.any?
-      attr_string = additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
-      @array << attr_string if attr_string&.empty?
+      attr_string = form_attr_string(options)
 
       if type == :text
-        cols = options.fetch(:cols, '10')
-        rows = options.fetch(:rows, '20')
-        @array << form_textarea(input_name, cols, rows, value)
+        form_textarea(input_name, options, value)
       else
-        @array << form_input(input_name, type, value, attr_string)
+        form_input(input_name, type, value, attr_string)
       end
     end
 
-    def form_textarea(input_name, cols, rows, value)
-      "<textarea name='#{input_name}' cols='#{cols}' rows='#{rows}'>#{value}</textarea>"
+    def form_attr_string(options)
+      additional_attributes = options.reject { |key| key == :as }
+      additional_attributes.any?
+      additional_attributes = options.reject { |key| key == :as }
+      additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
+    end
+
+    def form_textarea(input_name, options, value)
+      cols = options.fetch(:cols, '10')
+      rows = options.fetch(:rows, '20')
+      @array << "<textarea name='#{input_name}' cols='#{cols}' rows='#{rows}'>#{value}</textarea>"
     end
 
     def form_input(name, type, value, attr_string)
-
       attributes = [
         "name='#{name}'",
         "type='#{type}'",
@@ -61,7 +64,7 @@ module HexletCode
         (attr_string unless attr_string.empty?)
       ].compact.join(' ')
 
-      "<input #{attributes}>"
+      @array << "<input #{attributes}>"
     end
   end
 end
