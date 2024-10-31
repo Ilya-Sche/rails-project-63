@@ -13,7 +13,7 @@ module HexletCode
     end
   end
 
-  def self.form_for(user, action: '#', method: 'post', url: nil)
+  def self.form_for(user, action: '#', method: 'post', url: nil, class: nil)
     result = []
     form = UserForm.new(user)
     form_action = url || action
