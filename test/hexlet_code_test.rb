@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require_relative '../lib/hexlet_code'
 require 'ostruct'
-# HexletCodeTest - это модуль, который предоставляет...
+# HexletCodeTest - это модуль, который предоставляет протестировать работоспособность кода.
 class HexletCodeTest < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
   def test_form_for_without_attributes
@@ -20,8 +20,8 @@ class HexletCodeTest < Minitest::Test
 
   def test_form_for_with_block_content
     user = User.new(name: 'rob', job: 'developer')
-    result = HexletCode.form_for(user, url: '/users', method: 'post')
-    assert_equal "<form action='/users' method='post'></form>", result
+    result = HexletCode.form_for(user, url: '/users', method: 'post', class: 'hexlet-form')
+    assert_equal "<form action='/users' method='post' class='hexlet-form'></form>", result
   end
 
   def test_form_for_input_name_job_as_text

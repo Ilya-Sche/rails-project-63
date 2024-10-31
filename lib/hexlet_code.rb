@@ -2,7 +2,7 @@
 
 require_relative 'hexlet_code/version'
 require 'active_support/core_ext/string'
-# HexletCode - это модуль, который предоставляет...
+# HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
   def self.build(tag_name, attributes = {})
     tag_attr = attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
@@ -13,19 +13,24 @@ module HexletCode
     end
   end
 
-  def self.form_for(user, action: '#', method: 'post', url: nil, **kwargs)
+  def self.form_for(user, **kwargs)
     result = []
     form = UserForm.new(user)
-    input_class = kwargs[:class] if kwargs[:class]
-    form_action = url || action
-    result << "<form action='#{form_action}' method='#{method}' #{input_class}>"
+    action = kwargs[:url] || kwargs[:action] || '#'
+    method = kwargs[:method] || 'post'
+    attributes = [
+          "action='#{action}'",
+          "method='#{method}'",
+          ("class='#{kwargs[:class]}'" unless kwargs[:class].nil?)
+        ].compact.join(' ')
+    result << "<form #{attributes}>"
     result << yield(form) if block_given?
     result << '</form>'
     result.join.strip
   end
 
   require 'ostruct'
-  # UserForm- это класс, который предоставляет...
+  # UserForm- это класс, который предоставляет возможность создавать поля ввода.
   class UserForm
     def initialize(user)
       @user = user
@@ -74,4 +79,20 @@ module HexletCode
       @array << "<input type='submit' value='#{value}'>"
     end
   end
+end
+
+def self.form_for(user, action, method, **kwargs)
+  result = []
+  form = UserForm.new(user)
+  input_class = kwargs[:class] if kwargs[:class]
+  form_action = kwargs[:url] if kwargs[:url]
+  attributes = [
+        "action='#{form_action}'",
+        "method='#{method}'",
+        "class='#{input_class}'",
+      ].compact.join(' ')
+  result << "<form '#{attributes}'>"
+  result << yield(form) if block_given?
+  result << '</form>'
+  result.join.strip
 end
