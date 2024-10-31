@@ -13,9 +13,10 @@ module HexletCode
     end
   end
 
-  def self.form_for(user, action: '#', method: 'post', url: nil, class: nil)
+  def self.form_for(user, action: '#', method: 'post', url: nil, **kwargs)
     result = []
     form = UserForm.new(user)
+    input_class = kwargs[:class] if kwargs[:class]
     form_action = url || action
     result << "<form action='#{form_action}' method='#{method}'>"
     result << yield(form) if block_given?
