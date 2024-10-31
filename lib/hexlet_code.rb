@@ -18,7 +18,7 @@ module HexletCode
     form = UserForm.new(user)
     input_class = kwargs[:class] if kwargs[:class]
     form_action = url || action
-    result << "<form action='#{form_action}' method='#{method}'>"
+    result << "<form action='#{form_action}' method='#{method}'#{input_class}>"
     result << yield(form) if block_given?
     result << '</form>'
     result.join.strip
