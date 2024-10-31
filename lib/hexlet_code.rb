@@ -16,17 +16,21 @@ module HexletCode
   def self.form_for(user, **kwargs)
     result = []
     form = UserForm.new(user)
-    action = kwargs[:url] || kwargs[:action] || '#'
-    method = kwargs[:method] || 'post'
-    attributes = [
-          "action='#{action}'",
-          "method='#{method}'",
-          ("class='#{kwargs[:class]}'" unless kwargs[:class].nil?)
-        ].compact.join(' ')
+    attributes = form_for_attributes(kwargs)
     result << "<form #{attributes}>"
     result << yield(form) if block_given?
     result << '</form>'
     result.join.strip
+  end
+
+  def self.form_for_attributes(kwargs)
+    action = kwargs[:url] || kwargs[:action] || '#'
+    method = kwargs[:method] || 'post'
+    [
+      "action='#{action}'",
+      "method='#{method}'",
+      ("class='#{kwargs[:class]}'" unless kwargs[:class].nil?)
+    ].compact.join(' ')
   end
 
   require 'ostruct'
@@ -79,20 +83,4 @@ module HexletCode
       @array << "<input type='submit' value='#{value}'>"
     end
   end
-end
-
-def self.form_for(user, action, method, **kwargs)
-  result = []
-  form = UserForm.new(user)
-  input_class = kwargs[:class] if kwargs[:class]
-  form_action = kwargs[:url] if kwargs[:url]
-  attributes = [
-        "action='#{form_action}'",
-        "method='#{method}'",
-        "class='#{input_class}'",
-      ].compact.join(' ')
-  result << "<form '#{attributes}'>"
-  result << yield(form) if block_given?
-  result << '</form>'
-  result.join.strip
 end
