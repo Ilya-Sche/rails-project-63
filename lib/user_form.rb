@@ -9,6 +9,8 @@ class UserForm
     @form_elements = []
   end
 
+  private
+
   def input(input_name, **options)
     value = @user.public_send(input_name) || ''
     attr_string = form_attr_string(options)
@@ -40,8 +42,7 @@ class UserForm
       "name='#{input_name}'",
       ("cols='#{options[:cols] || '10'}'" if options[:as]),
       ("rows='#{options[:rows] || '20'}'" if options[:as]),
-      ("type='text'" unless options[:as]),
-      ("value='#{value}'" unless options[:as]),
+      ("type='text' value='#{value}'" unless options[:as]),
       (attr_string unless attr_string.empty?)
     ].compact.join(' ')
   end

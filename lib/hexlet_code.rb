@@ -5,15 +5,6 @@ require_relative 'hexlet_code/version'
 require 'active_support/core_ext/string'
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
-  def self.build(tag_name, attributes = {})
-    tag_attr = attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
-    if tag_attr.empty?
-      "<#{tag_name}>"
-    else
-      "<#{tag_name} #{tag_attr}/>"
-    end
-  end
-
   def self.form_for(user, **kwargs)
     result = []
     form = UserForm.new(user)
@@ -22,6 +13,15 @@ module HexletCode
     result << yield(form) if block_given?
     result << '</form>'
     result.join.strip
+  end
+
+  def self.build(tag_name, attributes = {})
+    tag_attr = attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
+    if tag_attr.empty?
+      "<#{tag_name}>"
+    else
+      "<#{tag_name} #{tag_attr}/>"
+    end
   end
 
   def self.form_for_attributes(kwargs)
@@ -33,5 +33,8 @@ module HexletCode
       "method='#{http_method}'",
       (add_attr unless add_attr.empty?)
     ].compact.join(' ')
+  end
+  class << self
+    private :build, :form_for_attributes
   end
 end
