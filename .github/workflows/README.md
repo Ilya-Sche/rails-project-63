@@ -1,1 +1,2 @@
-![CI](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/lint.yml/badge.svg)
+[![CI](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/lint.yml/badge.svg)](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/lint.yml)
+[![hexlet-check](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Ilya-Sche/rails-project-63/actions/workflows/hexlet-check.yml)

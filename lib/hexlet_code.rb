@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'user_form'
 require_relative 'hexlet_code/version'
 require 'active_support/core_ext/string'
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
@@ -24,63 +25,13 @@ module HexletCode
   end
 
   def self.form_for_attributes(kwargs)
+    add_attr = kwargs.except(:url, :action, :method).map { |key, value| "#{key}='#{value}'" }.join(' ')
     action = kwargs[:url] || kwargs[:action] || '#'
-    method = kwargs[:method] || 'post'
+    http_method = kwargs[:method] || 'post'
     [
       "action='#{action}'",
-      "method='#{method}'",
-      ("class='#{kwargs[:class]}'" unless kwargs[:class].nil?)
+      "method='#{http_method}'",
+      (add_attr unless add_attr.empty?)
     ].compact.join(' ')
-  end
-
-  require 'ostruct'
-  # UserForm- это класс, который предоставляет возможность создавать поля ввода.
-  class UserForm
-    def initialize(user)
-      @user = user
-      @array = []
-    end
-
-    def input(input_name, **options)
-      value = @user.public_send(input_name) || ''
-      type = options.fetch(:as, 'text')
-      attr_string = form_attr_string(options)
-
-      person_name = input_name
-      @array << "<label for='#{input_name}'>#{person_name.capitalize}</label>"
-
-      if type == :text
-        form_textarea(input_name, options, value)
-      else
-        form_input(input_name, type, value, attr_string)
-      end
-    end
-
-    def form_attr_string(options)
-      additional_attributes = options.reject { |key| key == :as }
-      additional_attributes.any?
-      additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
-    end
-
-    def form_textarea(input_name, options, value)
-      cols = options.fetch(:cols, '10')
-      rows = options.fetch(:rows, '20')
-      @array << "<textarea name='#{input_name}' cols='#{cols}' rows='#{rows}'>#{value}</textarea>"
-    end
-
-    def form_input(name, type, value, attr_string)
-      attributes = [
-        "name='#{name}'",
-        "type='#{type}'",
-        "value='#{value}'",
-        (attr_string unless attr_string.empty?)
-      ].compact.join(' ')
-
-      @array << "<input #{attributes}>"
-    end
-
-    def submit(value = 'Save')
-      @array << "<input type='submit' value='#{value}'>"
-    end
   end
 end

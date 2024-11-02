@@ -3,4 +3,4 @@ install:
 lint:
 	bundle exec rubocop
 test:
-	bundle exec minitest
+	bundle exec test
