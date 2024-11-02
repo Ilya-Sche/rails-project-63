@@ -9,8 +9,6 @@ class UserForm
     @form_elements = []
   end
 
-  private
-
   def input(input_name, **options)
     value = @user.public_send(input_name) || ''
     attr_string = form_attr_string(options)
