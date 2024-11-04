@@ -15,8 +15,6 @@ module HexletCode
     result.join.strip
   end
 
-  private
-
   def self.form_for_attributes(kwargs)
     add_attr = kwargs.except(:url, :action, :method).map { |key, value| "#{key}='#{value}'" }.join(' ')
     action = kwargs[:url] || kwargs[:action] || '#'
@@ -26,5 +24,8 @@ module HexletCode
       "method='#{http_method}'",
       (add_attr unless add_attr.empty?)
     ].compact.join(' ')
+  end
+  class << self
+    private :form_for_attributes
   end
 end

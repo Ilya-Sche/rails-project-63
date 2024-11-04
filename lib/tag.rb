@@ -3,8 +3,8 @@
 require_relative 'user_form'
 require_relative 'hexlet_code'
 require 'active_support/core_ext/string'
+# HexletCode - это модуль, который предоставляет возможность генерировать тэги.
 module Tag
-
   def input(input_name, options = {})
     value = @user.public_send(input_name) || ''
     attr_string = form_attr_string(options)
@@ -28,16 +28,15 @@ module Tag
   private
 
   def build(tag_name, input_name, options, value, attr_string)
-
     case tag_name.to_s
-    when "label"
+    when 'label'
       build_label(tag_name, input_name, options)
-    when "input"
-      build_input(tag_name, input_name, options, value, attr_string)
-    when "textarea"
+    when 'input'
+      build_input(input_name, options, value, attr_string)
+    when 'textarea'
       build_textarea(input_name, options, value, attr_string)
-    when "br"
-      "</br>"
+    when 'br'
+      '</br>'
     end
   end
 
@@ -50,7 +49,7 @@ module Tag
     additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
   end
   
-  def build_input(tag_name, input_name, options, value, attr_string)
+  def build_input(input_name, options, value, attr_string)
     attributes = build_input_attributes(input_name, options, value, attr_string)
     label = build_label(input_name)
     result = "<input #{attributes}>"
@@ -63,7 +62,7 @@ module Tag
     label = build_label(input_name)
     @form_elements << label
     result = "<textarea #{attributes}>#{value}</textarea>"
-    @form_elements << result  
+    @form_elements << result
   end
   
   def build_input_attributes(input_name, options, value, attr_string)
