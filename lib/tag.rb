@@ -75,4 +75,3 @@ module Tag
     ].compact.join(' ')
   end
 end
- 
