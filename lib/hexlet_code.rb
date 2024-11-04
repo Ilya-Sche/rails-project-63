@@ -15,14 +15,7 @@ module HexletCode
     result.join.strip
   end
 
-  def self.build(tag_name, attributes = {})
-    tag_attr = attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
-    if tag_attr.empty?
-      "<#{tag_name}>"
-    else
-      "<#{tag_name} #{tag_attr}/>"
-    end
-  end
+  private
 
   def self.form_for_attributes(kwargs)
     add_attr = kwargs.except(:url, :action, :method).map { |key, value| "#{key}='#{value}'" }.join(' ')
@@ -33,8 +26,5 @@ module HexletCode
       "method='#{http_method}'",
       (add_attr unless add_attr.empty?)
     ].compact.join(' ')
-  end
-  class << self
-    private :build, :form_for_attributes
   end
 end
