@@ -43,12 +43,12 @@ module Tag
   def build_label(input_name)
     "<label for='#{input_name}'>#{input_name.capitalize}</label>"
   end
-  
+
   def form_attr_string(options)
     additional_attributes = options.except(:as, :cols, :rows)
     additional_attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
   end
-  
+
   def build_input(input_name, options, value, attr_string)
     attributes = build_input_attributes(input_name, options, value, attr_string)
     label = build_label(input_name)
@@ -64,7 +64,7 @@ module Tag
     result = "<textarea #{attributes}>#{value}</textarea>"
     @form_elements << result
   end
-  
+
   def build_input_attributes(input_name, options, value, attr_string)
     [
       "name='#{input_name}'",
@@ -75,4 +75,4 @@ module Tag
     ].compact.join(' ')
   end
 end
-  
+ 
