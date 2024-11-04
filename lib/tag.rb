@@ -3,7 +3,6 @@
 require_relative 'user_form'
 require_relative 'hexlet_code'
 require 'active_support/core_ext/string'
-require 'debug'
 module Tag
 
   def input(input_name, options = {})
