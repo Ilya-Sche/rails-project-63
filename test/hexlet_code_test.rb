@@ -2,9 +2,7 @@
 
 require 'minitest/autorun'
 $LOAD_PATH.unshift(File.expand_path('/lib', __dir__))
-autoload :HexletCode, '../lib/hexlet_code'
-autoload :UserForm, '../lib/hexlet_code/user_form'
-autoload :Tag, '../lib/hexlet_code/tag'
+autoload :HexletCode, './lib/hexlet_code'
 require_relative 'test_helper'
 
 # HexletCodeTest - это модуль, который предоставляет протестировать работоспособность кода.
@@ -14,21 +12,21 @@ class HexletCodeTest < Minitest::Test
   def test_form_for_without_attributes
     user = User.new(name: 'rob', job: 'developer')
     result = HexletCode.form_for(user)
-    expected_result = load_fixtures('fixtures/form_for_without_attributes.html')
+    expected_result = load_fixtures('test/fixtures/form_for_without_attributes.html')
     assert_equal expected_result, result
   end
 
   def test_form_for_with_attributes
     user = User.new(name: 'rob', job: 'developer')
     result = HexletCode.form_for(user, action: '#', method: 'post')
-    expected_result = load_fixtures('fixtures/form_for_with_attributes.html')
+    expected_result = load_fixtures('test/fixtures/form_for_with_attributes.html')
     assert_equal expected_result, result
   end
 
   def test_form_for_with_block_content
     user = User.new(name: 'rob', job: 'developer')
     result = HexletCode.form_for(user, url: '/users', method: 'post', class: 'hexlet-form')
-    expected_result = load_fixtures('fixtures/form_for_with_block_content.html')
+    expected_result = load_fixtures('test/fixtures/form_for_with_block_content.html')
     assert_equal expected_result, result
   end
 
@@ -38,7 +36,7 @@ class HexletCodeTest < Minitest::Test
       f.input :name
       f.input :job, as: :text
     end
-    expected_result = load_fixtures('fixtures/form_for_input_name_job_as_text.html')
+    expected_result = load_fixtures('test/fixtures/form_for_input_name_job_as_text.html')
     assert_equal expected_result, result
   end
 
@@ -48,7 +46,7 @@ class HexletCodeTest < Minitest::Test
       f.input :name, class: 'user-input'
       f.input :job
     end
-    expected_result = load_fixtures('fixtures/form_for_input_name_additional_attribute.html')
+    expected_result = load_fixtures('test/fixtures/form_for_input_name_additional_attribute.html')
     assert_equal expected_result, result
   end
 
@@ -57,7 +55,7 @@ class HexletCodeTest < Minitest::Test
     result = HexletCode.form_for(user, url: '#') do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
-    expected_result = load_fixtures('fixtures/change_cols_and_rows.html')
+    expected_result = load_fixtures('test/fixtures/change_cols_and_rows.html')
     assert_equal expected_result, result
   end
 
@@ -68,7 +66,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job
       f.submit
     end
-    expected_result = load_fixtures('fixtures/submit_button.html')
+    expected_result = load_fixtures('test/fixtures/submit_button.html')
     assert_equal expected_result, result
   end
 
@@ -79,7 +77,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job
       f.submit 'Wow'
     end
-    expected_result = load_fixtures('fixtures/submit_button_change.html')
+    expected_result = load_fixtures('test/fixtures/submit_button_change.html')
     assert_equal expected_result, result
   end
 end

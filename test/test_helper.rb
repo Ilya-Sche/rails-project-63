@@ -3,6 +3,6 @@
 require 'minitest/autorun'
 
 def load_fixtures(fixture_name)
-  File.expand_path("../fixtures/#{fixture_name}", __dir__)
+  File.expand_path("./test/fixtures/#{fixture_name}", __dir__)
   File.read(fixture_name)
 end

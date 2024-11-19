@@ -4,8 +4,8 @@ require 'active_support/core_ext/string'
 
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
-  autoload :UserForm, '../lib/hexlet_code/user_form'
-  autoload :Tag, '../lib/hexlet_code/tag'
+  autoload :UserForm, './lib/hexlet_code/user_form'
+  autoload :Tag, './lib/hexlet_code/tag'
   def self.form_for(user, **kwargs)
     form_builder = UserForm.new(user)
 
