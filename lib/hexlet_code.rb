@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/string'
-$LOAD_PATH.unshift(File.expand_path('/lib', __dir__))
 
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
-  autoload :UserForm, './lib/hexlet_code/user_form'
-  autoload :Tag, './lib/hexlet_code/tag'
+  autoload :UserForm, File.expand_path('hexlet_code/user_form.rb', __dir__)
+  autoload :Tag, File.expand_path('hexlet_code/tag.rb', __dir__)
   def self.form_for(user, **kwargs)
     form_builder = UserForm.new(user)
 
