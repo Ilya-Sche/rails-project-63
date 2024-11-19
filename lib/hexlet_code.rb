@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# autoload :HexletCode, '../lib/hexlet_code'
-
-require_relative '../lib/version'
 require 'active_support/core_ext/string'
 
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.

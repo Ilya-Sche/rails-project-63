@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'lib/hexlet_code/version'
+$LOAD_PATH.push File.expand_path('lib', __dir__)
+require 'hexlet_code/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'hexlet_code'
