@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
-autoload :HexletCode, '../lib/hexlet_code/hexlet_code.rb'
+$LOAD_PATH.unshift(File.expand_path('/lib', __dir__))
+autoload :HexletCode, '../lib/hexlet_code'
+autoload :UserForm, '../lib/hexlet_code/user_form'
+autoload :Tag, '../lib/hexlet_code/tag'
 require_relative 'test_helper'
+
 # HexletCodeTest - это модуль, который предоставляет протестировать работоспособность кода.
 class HexletCodeTest < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
