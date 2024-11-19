@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Tag - это модуль, который предоставляет возможность генерировать тэги.
-module HexletCode::Tag
+module HexletCode
+  # Tag - это модуль, который предоставляет возможность генерировать тэги.
+  module Tag
     def self.build(tag, attributes = {})
       attrs = attributes.map { |key, value| "#{key}='#{value}'" }.join(' ')
       content = yield if block_given?
@@ -26,4 +27,5 @@ module HexletCode::Tag
 
       "<textarea #{attrs}>#{attributes[:value]}</textarea>"
     end
+  end
 end

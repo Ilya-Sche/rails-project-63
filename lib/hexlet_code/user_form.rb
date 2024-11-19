@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/string'
-# UserForm- это класс, который предоставляет возможность создавать поля ввода.
 module HexletCode
+  # UserForm- это класс, который предоставляет возможность создавать поля ввода.
   class UserForm
-
     def initialize(user)
       @user = user
       @form_elements = [].join
