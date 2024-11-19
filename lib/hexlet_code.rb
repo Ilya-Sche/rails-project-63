@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/string'
+$LOAD_PATH.unshift(File.expand_path('/lib', __dir__))
 
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
