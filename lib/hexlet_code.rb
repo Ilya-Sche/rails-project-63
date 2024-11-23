@@ -4,19 +4,16 @@ require 'active_support/core_ext/string'
 
 # HexletCode - это модуль, который предоставляет возможность генерировать формы.
 module HexletCode
-  autoload :UserForm, File.expand_path('hexlet_code/user_form.rb', __dir__)
+  autoload :Form, File.expand_path('hexlet_code/form.rb', __dir__)
   autoload :Tag, File.expand_path('hexlet_code/tag.rb', __dir__)
-  def self.form_for(user, **kwargs)
-    form_builder = UserForm.new(user)
+  def self.form_for(model, form_attrs = {})
+    form_builder = Form.new(model)
+    attributes = form_attrs
 
-    attributes = kwargs
-
-    if kwargs[:url]
-      url = kwargs.delete(:url)
-      attributes = { action: url }.merge!(kwargs)
+    if form_attrs[:url]
+      attributes = { action: attributes.fetch(:url, '#'), method: 'post' }.merge(attributes.except(:url))
     end
-
-    attributes = { action: '#', method: 'post' } if kwargs.empty?
+    attributes = { action: '#', method: 'post' } if form_attrs.empty?
 
     Tag.build('form', attributes) do
       yield(form_builder) if block_given?

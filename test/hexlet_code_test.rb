@@ -7,7 +7,7 @@ require_relative 'test_helper'
 # HexletCodeTest - это модуль, который предоставляет протестировать работоспособность кода.
 class HexletCodeTest < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
-
+  Post = Struct.new(:title, :body, keyword_init: true)
   def test_form_for_without_attributes
     user = User.new(name: 'rob', job: 'developer')
     result = HexletCode.form_for(user)
@@ -77,6 +77,16 @@ class HexletCodeTest < Minitest::Test
       f.submit 'Wow'
     end
     expected_result = load_fixtures('submit_button_change.html')
+    assert_equal expected_result, result
+  end
+
+  def test_post_as_text
+    post = Post.new(title: 'Hello', body: 'World')
+    result = HexletCode.form_for(post) do |f|
+      f.input :title
+      f.input :body, as: :text
+    end
+    expected_result = load_fixtures('form_for_post_as_text.html')
     assert_equal expected_result, result
   end
 end
