@@ -20,8 +20,7 @@ module HexletCode
     end
 
     def input(attribute, form_attrs = {})
-      label_attributes = { for: attribute }
-      @form_elements << { tag: 'label', name: attribute, value: label_attributes[:for].capitalize }
+      @form_elements << add_label(attribute)
       if form_attrs[:as] == :text
         attributes = { name: attribute }.merge(form_attrs.except(:as))
         attributes[:value] = value(attribute)
@@ -45,6 +44,14 @@ module HexletCode
         type: attributes[:type],
         value: value(attribute)
       }.merge(form_attrs)
+    end
+
+    def add_label(attribute)
+      {
+        tag: 'label',
+        name: attribute,
+        value: attribute.capitalize
+      }
     end
 
     def value(attribute)
