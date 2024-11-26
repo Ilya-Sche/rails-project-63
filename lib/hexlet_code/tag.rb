@@ -10,10 +10,8 @@ module HexletCode
       content = yield if block_given?
       if SELF_CLOSING_TAGS.include?(tag)
         "<#{tag} #{attrs}>"
-      elsif content
-        "<#{tag} #{attrs}>#{content}</#{tag}>"
       else
-        "<#{tag} #{attrs}></#{tag}>"
+        "<#{tag} #{attrs}>#{content}</#{tag}>"
       end
     end
   end
