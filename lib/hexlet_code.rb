@@ -10,16 +10,9 @@ module HexletCode
 
   def self.form_for(model, form_attrs = {})
     form_builder = Form.new(model)
-    attributes = form_attrs
+    form_attributes = { action: form_attrs.fetch(:url, '#'), method: 'post' }.merge(form_attrs.except(:url))
 
-    attributes = { action: attributes.fetch(:url, '#'), method: 'post' }.merge(attributes.except(:url)) if form_attrs
-    attributes = { action: '#', method: 'post' } if form_attrs.empty?
-
-    form_elements = []
-    form_elements = yield(form_builder) if block_given?
-
-    Tag.build('form', attributes) do
-      FormRender.new(form_elements).render
-    end
+    yield(form_builder) if block_given?
+    FormRender.new(form_builder.form_elements, form_attributes).render_elements
   end
 end
