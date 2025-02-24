@@ -2,7 +2,7 @@
 
 require 'active_support/core_ext/string'
 module HexletCode
-  # FormRender - это модуль, который Генерирует html строки.
+  # FormRender - это модуль, который s html строки.
   class FormRender
     def initialize(form_elements, form_attributes = {})
       @form_elements = form_elements
