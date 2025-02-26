@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'active_support/core_ext/string'
 module HexletCode
-  # FormRender - это модуль, который 1 html строки.
+  # FormRender - это модуль, который генерирует html строки.
   class FormRender
     def initialize(form_elements, form_attributes = {})
       @form_elements = form_elements
