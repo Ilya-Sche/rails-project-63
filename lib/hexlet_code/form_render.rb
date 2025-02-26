@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'active_support/core_ext/string'
 module HexletCode
   # FormRender - это модуль, который 12 html строки.
